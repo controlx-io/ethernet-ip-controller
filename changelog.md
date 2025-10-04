@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.1.2-beta] - 2025-01-04
+
+### Added
+
+- **Documentation**: Added comprehensive example section to README
+  - Interactive example with user IP prompt
+  - Demonstrates tag discovery, reading, and polling
+  - Shows proper connection lifecycle management
+  - Files changed: `readme.md`
+
+- **Examples**: Added new basic usage example
+  - `examples/basic.ts` - Interactive PLC connection and tag polling example
+  - Demonstrates finding DINT tags and reading values with interval polling
+  - Files added: `examples/basic.ts`
+
+### Changed
+
+- **Version**: Updated package version from `0.1.1-beta` to `0.1.2-beta`
+  - Files changed: `deno.json`
+
 ## [0.1.0-beta] - 2025-01-04
 
 ### Fixed
