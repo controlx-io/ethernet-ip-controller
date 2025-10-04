@@ -66,7 +66,10 @@ class ControllerManager {
 
 export interface IEextController {
   on(event: "Connected", listener: (this: this) => void): this;
-  on(event: "TagChanged", listener: (tag: Tag, previousValue: any) => void): this;
+  on(
+    event: "TagChanged",
+    listener: (tag: Tag, previousValue: any) => void,
+  ): this;
   on(event: "TagInit", listener: (tag: Tag) => void): this;
   on(event: "TagUnknown", listener: (tag: Tag) => void): this;
   on(event: "Disconnected", listener: () => void): this;

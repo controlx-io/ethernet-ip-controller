@@ -1,18 +1,19 @@
 {
-  "name": "ethernet-ip-controller",
+  "name": "@controlx-io/ethernet-ip-controller",
   "description": "A TypeScript library for controlling Ethernet/IP devices: Explicit Message Client and I/O Scanner",
-  "version": "0.1.0-beta",
+  "version": "0.1.1-beta",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/controlx-io/ethernet-ip-controller"
   },
+  "exports": "./src/main.ts",
   "tasks": {
     "format": "deno fmt",
     "lint": "deno lint",
     "check": "deno check",
     "test": "deno test --allow-all",
-    "pre-publish": "deno run format && deno run lint && deno run check"
+    "pre-publish": "deno run format && deno run lint && deno run check && deno run test"
   },
   "fmt": {
     "options": {
@@ -54,6 +55,5 @@
     "task-easy": "npm:task-easy@^1.0.1"
   },
   "exclude": ["_other_implementations"],
-  "exports": "./src/main.ts",
   "author": "Alex Sharikov <alex@controlx.io>"
 }

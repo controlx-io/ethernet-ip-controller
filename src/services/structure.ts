@@ -155,7 +155,7 @@ export class Structure extends Tag {
     offset: number = 0,
     value: Buffer | null = null,
     size: number = 0x01,
-  ) {
+  ): Buffer {
     const { STRUCT } = CIP.DataTypes.Types;
 
     if (!this._template) {
@@ -507,7 +507,7 @@ export class Structure extends Tag {
    * @param newValue - array of sture values that are objects / strings
    * @returns data message to be sent to PLC
    */
-  _parseWriteDataArray(newValue: any[]) {
+  _parseWriteDataArray(newValue: any[]): Buffer {
     let buf = Buffer.alloc(0);
 
     newValue.forEach((value) => {

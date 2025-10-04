@@ -80,7 +80,7 @@ export class ENIP extends Socket {
    * @readonly
    * @memberof ENIP
    */
-  get error() {
+  get error(): enipError {
     return this.state.error;
   }
 
@@ -90,7 +90,7 @@ export class ENIP extends Socket {
    * @readonly
    * @memberof ENIP
    */
-  get establishing() {
+  get establishing(): boolean {
     return this.state.session.establishing;
   }
   /**
@@ -99,7 +99,7 @@ export class ENIP extends Socket {
    * @readonly
    * @memberof ENIP
    */
-  get established() {
+  get established(): boolean {
     return this.state.session.established;
   }
 
@@ -109,7 +109,7 @@ export class ENIP extends Socket {
    * @readonly
    * @memberof ENIP
    */
-  get session_id() {
+  get session_id(): number {
     return this.state.session.id;
   }
 
@@ -118,7 +118,7 @@ export class ENIP extends Socket {
    *
    * @memberof ENIP
    */
-  set establishing_conn(newEstablish) {
+  set establishing_conn(newEstablish: boolean) {
     if (typeof newEstablish !== "boolean") {
       throw new Error(
         "Wrong type passed when setting connection: establishing parameter",
@@ -126,11 +126,11 @@ export class ENIP extends Socket {
     }
     this.state.connection.establishing = newEstablish;
   }
-  get establishing_conn() {
+  get establishing_conn(): boolean {
     return this.state.connection.establishing;
   }
 
-  set established_conn(newEstablished) {
+  set established_conn(newEstablished: boolean) {
     if (typeof newEstablished !== "boolean") {
       throw new Error(
         "Wrong type passed when setting connection: established parameter",
@@ -139,7 +139,7 @@ export class ENIP extends Socket {
     this.state.connection.established = newEstablished;
   }
 
-  get established_conn() {
+  get established_conn(): boolean {
     return this.state.connection.established;
   }
 
@@ -151,7 +151,7 @@ export class ENIP extends Socket {
     }
     this.state.connection.id = newID;
   }
-  get id_conn() {
+  get id_conn(): number {
     return this.state.connection.id;
   }
 
@@ -164,7 +164,7 @@ export class ENIP extends Socket {
     this.state.connection.seq_num = newSeq;
   }
 
-  get seq_conn() {
+  get seq_conn(): number {
     return this.state.connection.seq_num;
   }
   // endregion

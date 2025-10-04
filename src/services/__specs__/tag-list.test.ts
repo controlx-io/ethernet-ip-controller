@@ -12,7 +12,7 @@ Deno.test("Tag List", async (t) => {
     await t.step("Generates Appropriate Output Instance 0", () => {
       const tagList = new TagList();
 
-      const result = tagList._generateListMessageRequest(0);
+      const result = tagList._generateListMessageRequest(0, null);
 
       // Expected data from Jest snapshot
       const expectedData = new Uint8Array([
@@ -40,14 +40,14 @@ Deno.test("Tag List", async (t) => {
     await t.step("Generates Appropriate Output", () => {
       const tagList = new TagList();
 
-      tagList._parseAttributeListResponse(responseData);
+      tagList._parseAttributeListResponse(responseData, null);
 
       // Expected tags from Jest snapshot
       const expectedTags = [
         {
           id: 3815,
           name: "HowLongCanYouMakeAnIntegerName",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 196,
@@ -60,7 +60,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 6353,
           name: "Timer2",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 3971,
@@ -73,7 +73,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 7162,
           name: "Map:LocalENB",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 105,
@@ -86,7 +86,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 8255,
           name: "Integer6",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 196,
@@ -99,7 +99,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 9248,
           name: "Map:Controller",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 105,
@@ -112,7 +112,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 9602,
           name: "AnalogOne",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 202,
@@ -125,7 +125,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 11241,
           name: "Integer3",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 196,
@@ -138,7 +138,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 12648,
           name: "BitOne",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 193,
@@ -151,7 +151,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 13748,
           name: "LongIntegerName1",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 195,
@@ -164,7 +164,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 14397,
           name: "Integer5",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 196,
@@ -177,7 +177,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 16174,
           name: "ThisIntegerNameIsEvenLongerThanTheFirst1",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 196,
@@ -190,7 +190,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 16805,
           name: "LongStringName1",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 4046,
@@ -203,7 +203,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 19059,
           name: "String2",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 4046,
@@ -216,7 +216,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 20716,
           name: "TheInteger",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 195,
@@ -229,7 +229,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 22820,
           name: "Program:MainProgram",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 104,
@@ -242,7 +242,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 26297,
           name: "ThisIsAnotherMaximumLengthTagName1111111",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 196,
@@ -255,7 +255,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 31819,
           name: "Integer4",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 196,
@@ -268,7 +268,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 33528,
           name: "Program:MainProgram2",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 104,
@@ -281,7 +281,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 35479,
           name: "BitTwo",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 193,
@@ -294,7 +294,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 39856,
           name: "String1",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 4046,
@@ -307,7 +307,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 46090,
           name: "String3",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 4046,
@@ -320,7 +320,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 46883,
           name: "Map:Local",
-          program: undefined,
+          program: null,
           type: {
             arrayDims: 0,
             code: 105,
@@ -348,7 +348,7 @@ Deno.test("Tag List", async (t) => {
     await t.step("Generates Appropriate Output", () => {
       const tagList = new TagList();
 
-      tagList._parseAttributeListResponse(responseData);
+      tagList._parseAttributeListResponse(responseData, null);
 
       // Expected programs from Jest snapshot
       const expectedPrograms = ["MainProgram", "MainProgram2"];

@@ -43,7 +43,10 @@ class TagList {
    * @param program - (optional) name of the program to search
    * @returns message to be sent to PLC
    */
-  _generateListMessageRequest(instanceID: number = 0, program: string | null) {
+  _generateListMessageRequest(
+    instanceID: number = 0,
+    program: string | null,
+  ): Buffer {
     const { LOGICAL, DATA } = CIP.EPATH.segments;
 
     const pathArray: Buffer[] = [];

@@ -59,7 +59,7 @@ const bufferToString = (buff: Buffer): string => {
  * @param len - Buffer Length to be encode string on to
  * @returns Buffer
  */
-const stringToBuffer = (str: string, len: number = 88) => {
+const stringToBuffer = (str: string, len: number = 88): Buffer => {
   const buf = Buffer.alloc(len);
   buf.writeUInt32LE(str.length);
   Buffer.from(str).copy(buf, 4);
@@ -87,7 +87,7 @@ const objToString = (obj: structureString): string => {
  * @param len - Buffer length
  * @returns
  */
-const stringToObj = (str: string, len = 82) => {
+const stringToObj = (str: string, len = 82): structureString => {
   const array = Array(len).fill(0);
   [...str].forEach((c, k) => {
     array[k] = c.charCodeAt(0);
@@ -95,14 +95,14 @@ const stringToObj = (str: string, len = 82) => {
 
   return {
     LEN: str.length,
-    DATA: array,
+    DATA: Buffer.from(array),
   };
 };
 
 const dateFormat = (
   date: Date,
   format: "mmmm dd, yyyy - hh:MM:ss TT" | "mm/dd/yyyy-HH:MM:ss.l",
-) => {
+): string => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();

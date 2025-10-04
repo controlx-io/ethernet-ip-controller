@@ -151,7 +151,7 @@ class Controller extends ENIP {
    *
    * @returns rpi setpoint in ms
    */
-  get rpi() {
+  get rpi(): number {
     return this.state.rpi;
   }
 
@@ -877,7 +877,11 @@ class Controller extends ENIP {
    * @param size - Used for writing arrays
    * @returns Promise resolved after complete writing
    */
-  writeTag(tag: Tag | Structure, value: any = null, size: number = 0x01) {
+  writeTag(
+    tag: Tag | Structure,
+    value: any = null,
+    size: number = 0x01,
+  ): Promise<void> {
     if (tag instanceof Structure) tag.writeObjToValue();
     return this.workers.write.schedule(this._writeTag.bind(this), [
       tag,
@@ -1698,7 +1702,7 @@ class Controller extends ENIP {
    * @param tag - Tag instance
    * @returns
    */
-  async getTagArraySize(tag: Tag | Structure) {
+  async getTagArraySize(tag: Tag | Structure): Promise<number> {
     let i = 1;
     do {
       tag.state.read_size = i;

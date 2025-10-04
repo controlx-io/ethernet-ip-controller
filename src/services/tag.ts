@@ -762,7 +762,7 @@ export class Tag extends EventEmitter implements ITag {
    * @param size
    * @returns Write Tag Message Service
    */
-  generateWriteMessageRequestForAtomic(value: any, size: number) {
+  generateWriteMessageRequestForAtomic(value: any, size: number): Buffer {
     const { tag } = this.state;
     const {
       BIT_STRING,
@@ -936,7 +936,7 @@ export class Tag extends EventEmitter implements ITag {
     offset: number = 0,
     value: any = null,
     size: number = 0x01,
-  ) {
+  ): Buffer {
     const { tag } = this.state;
     const { BIT_STRING, SINT, INT, DINT, REAL, BOOL, LINT, SHORT_STRING } =
       Types;
