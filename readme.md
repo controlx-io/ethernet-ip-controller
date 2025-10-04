@@ -33,7 +33,7 @@ bunx jsr add @controlx-io/ts-ethernet-ip
 Polling tag value, run
 
 ```
-deno --allow-net examples/basic.ts
+deno --allow-net https://jsr.io/@controlx-io/ethernet-ip-controller/0.1.2-beta/examples/basic.ts
 ```
 
 Or create a file `main.ts` with the content below and run
@@ -42,9 +42,12 @@ Or create a file `main.ts` with the content below and run
 ```typescript
 import { Controller } from "@controlx-io/ethernet-ip-controller";
 
+const ipAddress = await prompt("Enter the IP address of the PLC:");
+if (!ipAddress) throw new Error("IP address is required");
+
 const plc = new Controller(true);
 
-await plc.connect("192.168.111.11");
+await plc.connect(ipAddress);
 const dintTagInfo = plc.state.tagList.tags.find(
   (t) => t.type.typeName === "DINT",
 );
