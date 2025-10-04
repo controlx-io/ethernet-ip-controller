@@ -1,7 +1,7 @@
 {
   "name": "ethernet-ip-controller",
   "description": "A TypeScript library for controlling Ethernet/IP devices: Explicit Message Client and I/O Scanner",
-  "version": "0.0.1-beta",
+  "version": "0.1.0-beta",
   "license": "MIT",
   "repository": {
     "type": "git",

@@ -17,7 +17,7 @@ type tagListTag = {
   id: number;
   name: string;
   type: tagListTagType;
-  program: string;
+  program: string | null;
 };
 
 type tagListTemplates = {
@@ -43,7 +43,7 @@ class TagList {
    * @param program - (optional) name of the program to search
    * @returns message to be sent to PLC
    */
-  _generateListMessageRequest(instanceID: number = 0, program?: string) {
+  _generateListMessageRequest(instanceID: number = 0, program: string | null) {
     const { LOGICAL, DATA } = CIP.EPATH.segments;
 
     const pathArray: Buffer[] = [];
@@ -75,7 +75,7 @@ class TagList {
    * @param program - (optional) name of the program tag is from (optional)
    * @returns Last instance id parsed
    */
-  _parseAttributeListResponse(data: Buffer, program?: string): number {
+  _parseAttributeListResponse(data: Buffer, program: string | null): number {
     let instanceID: number = 0;
     let pointer = 0;
 
@@ -100,7 +100,7 @@ class TagList {
         id: instanceID,
         name: tagName,
         type: this._parseTagType(tagType),
-        program: program ?? "",
+        program: program,
       };
 
       if (lastTag !== -1) {
@@ -167,7 +167,7 @@ class TagList {
       const getListAt = (instanceID = 0) => { // Create function that we can call back in recursion
         const cipData = this._generateListMessageRequest(
           instanceID,
-          program ?? "",
+          program,
         ); // Create CIP Request
 
         PLC.write_cip(cipData); // Write CIP data to PLC
@@ -199,11 +199,11 @@ class TagList {
           if (err && err.generalStatusCode === 6) {
             const lastInstance = this._parseAttributeListResponse(
               data,
-              program ?? "",
+              program,
             ); // Parse response data
             getListAt(lastInstance + 1);
           } else {
-            this._parseAttributeListResponse(data, program ?? ""); // pArse response data
+            this._parseAttributeListResponse(data, program); // pArse response data
 
             // If program is not defined fetch tags for existing programs
             if (!program) {

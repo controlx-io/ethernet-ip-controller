@@ -54,8 +54,7 @@ Deno.test("CIPError - Unknown general status code", () => {
   assertEquals(result.generalStatusCode, 0xFF);
   assertEquals(result.extendedStatus, [0x00, 0x01]);
   assertEquals(result.msg, [
-    "Unknown general status code 0xff - Extended: 0x00",
-    "Unknown general status code 0xff - Extended: 0x01",
+    "Unknown general status code 0xff",
   ]);
   assertEquals(result.service, undefined);
 });
@@ -77,7 +76,7 @@ Deno.test("CIPError - Empty extended status array", () => {
 
   assertEquals(result.generalStatusCode, 0x01);
   assertEquals(result.extendedStatus, []);
-  assertEquals(result.msg, []);
+  assertEquals(result.msg, ["Connection failure"]);
   assertEquals(result.service, "TestService");
 });
 

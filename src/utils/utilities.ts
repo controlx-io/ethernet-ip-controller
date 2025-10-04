@@ -15,8 +15,19 @@ const promiseTimeout = (
   error: Error | string = new Error("ASYNC Function Call Timed Out!!!"),
 ): Promise<any> => {
   return new Promise((resolve, reject) => {
-    setTimeout(() => reject(error), ms);
-    promise.then(resolve).catch(reject);
+    // Store timeout ID so we can clear it if promise resolves/rejects early
+    const timeoutId = setTimeout(() => reject(error), ms);
+    promise
+      .then((result) => {
+        // Clear timeout to prevent memory leak and process hanging
+        clearTimeout(timeoutId);
+        resolve(result);
+      })
+      .catch((err) => {
+        // Clear timeout to prevent memory leak and process hanging
+        clearTimeout(timeoutId);
+        reject(err);
+      });
   });
 };
 

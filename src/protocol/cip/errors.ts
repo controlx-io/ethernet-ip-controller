@@ -247,34 +247,39 @@ export class CIPError {
     const generalStatus = ERROR[generalStatusCode as keyof typeof ERROR];
     const messages: string[] = [];
 
+    const result = {
+      generalStatusCode,
+      extendedStatus,
+      msg: messages,
+      service,
+    };
+
     if (generalStatus) {
+      if (extendedStatus.length === 0) {
+        result.msg = [
+          generalStatus[0x00 as keyof typeof generalStatus] ||
+          `Unknown general status code 0x${
+            generalStatusCode.toString(16).padStart(2, "0")
+          }`,
+        ];
+        return result;
+      }
+
       for (const status of extendedStatus) {
         const msg = generalStatus[status as keyof typeof generalStatus] ||
           `Unknown extended status code 0x${
             status.toString(16).padStart(2, "0")
           }`;
-        messages.push(msg);
+        result.msg.push(msg);
       }
-      return {
-        generalStatusCode,
-        extendedStatus,
-        msg: messages,
-        ...(service && { service }),
-      };
+      return result;
     } else {
-      for (const status of extendedStatus) {
-        messages.push(
-          `Unknown general status code 0x${
-            generalStatusCode.toString(16).padStart(2, "0")
-          } - Extended: 0x${status.toString(16).padStart(2, "0")}`,
-        );
-      }
-      return {
-        generalStatusCode,
-        extendedStatus,
-        msg: messages,
-        ...(service && { service }),
-      };
+      result.msg.push(
+        `Unknown general status code 0x${
+          generalStatusCode.toString(16).padStart(2, "0")
+        }`,
+      );
+      return result;
     }
   }
 }

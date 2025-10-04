@@ -21,24 +21,13 @@ try {
   console.log(tag2.value);
 
   await c.writeTag(tag2);
-
-  //   let count = 0;
-  //   const interval = setInterval(async () => {
-  //     count++;
-  //     tag.value[999] = count;
-  //     await c.writeTag(tag);
-  //     if (count === 1000) {
-  //       clearInterval(interval);
-  //       await c.disconnect();
-  //     }
-  //   }, 100);
 } catch (error) {
   console.error(error);
 }
 
 await c.disconnect();
 
-// listen on the process exit and log prior the exit of the process
+// fixed the Uititly clear timeout to stop a hang before the process exit
 process.on("exit", () => {
   console.log("Process exiting", new Date().toISOString());
 });

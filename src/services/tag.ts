@@ -47,7 +47,7 @@ type tagState = {
   keepAlive: number;
 };
 
-export interface ITag extends EventEmitter {
+export interface ITag {
   on(
     event: "Changed",
     listener: (this: this, previousValue: any) => void,

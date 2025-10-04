@@ -47,7 +47,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 3815,
           name: "HowLongCanYouMakeAnIntegerName",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 196,
@@ -60,7 +60,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 6353,
           name: "Timer2",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 3971,
@@ -73,7 +73,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 7162,
           name: "Map:LocalENB",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 105,
@@ -86,7 +86,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 8255,
           name: "Integer6",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 196,
@@ -99,7 +99,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 9248,
           name: "Map:Controller",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 105,
@@ -112,7 +112,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 9602,
           name: "AnalogOne",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 202,
@@ -125,7 +125,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 11241,
           name: "Integer3",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 196,
@@ -138,7 +138,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 12648,
           name: "BitOne",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 193,
@@ -151,7 +151,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 13748,
           name: "LongIntegerName1",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 195,
@@ -164,7 +164,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 14397,
           name: "Integer5",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 196,
@@ -177,7 +177,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 16174,
           name: "ThisIntegerNameIsEvenLongerThanTheFirst1",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 196,
@@ -190,7 +190,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 16805,
           name: "LongStringName1",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 4046,
@@ -203,7 +203,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 19059,
           name: "String2",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 4046,
@@ -216,7 +216,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 20716,
           name: "TheInteger",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 195,
@@ -229,7 +229,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 22820,
           name: "Program:MainProgram",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 104,
@@ -242,7 +242,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 26297,
           name: "ThisIsAnotherMaximumLengthTagName1111111",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 196,
@@ -255,7 +255,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 31819,
           name: "Integer4",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 196,
@@ -268,7 +268,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 33528,
           name: "Program:MainProgram2",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 104,
@@ -281,7 +281,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 35479,
           name: "BitTwo",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 193,
@@ -294,7 +294,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 39856,
           name: "String1",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 4046,
@@ -307,7 +307,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 46090,
           name: "String3",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 4046,
@@ -320,7 +320,7 @@ Deno.test("Tag List", async (t) => {
         {
           id: 46883,
           name: "Map:Local",
-          program: "",
+          program: undefined,
           type: {
             arrayDims: 0,
             code: 105,
