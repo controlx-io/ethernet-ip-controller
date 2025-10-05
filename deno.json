@@ -16,10 +16,8 @@
     "pre-publish": "deno run format && deno run lint && deno run check && deno run test"
   },
   "fmt": {
-    "options": {
-      "lineWidth": 80,
-      "indentWidth": 2
-    }
+    "lineWidth": 80,
+    "indentWidth": 2
   },
   "keywords": [
     "rockwell",
@@ -54,6 +52,6 @@
     "deep-equal": "npm:deep-equal@^2.2.3",
     "task-easy": "npm:task-easy@^1.0.1"
   },
-  "exclude": ["_other_implementations"],
+  "exclude": ["__temp__"],
   "author": "Alex Sharikov <alex@controlx.io>"
 }
