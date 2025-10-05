@@ -3,7 +3,7 @@
  * Common Industrial Protocol (CIP) Error Codes and Messages
  */
 
-export const ERROR = {
+export const ERROR: Record<number, Record<number, string>> = {
   0x00: {
     0x00: "Success",
   },
@@ -241,44 +241,39 @@ export class CIPError {
   ): {
     generalStatusCode: number;
     extendedStatus: number[];
-    msg: string[];
+    msg: string;
     service?: string;
   } {
     const generalStatus = ERROR[generalStatusCode as keyof typeof ERROR];
-    const messages: string[] = [];
-
     const result = {
       generalStatusCode,
       extendedStatus,
-      msg: messages,
+      msg: "",
       service,
     };
 
     if (generalStatus) {
-      if (extendedStatus.length === 0) {
-        result.msg = [
-          generalStatus[0x00 as keyof typeof generalStatus] ||
-          `Unknown general status code 0x${
-            generalStatusCode.toString(16).padStart(2, "0")
-          }`,
-        ];
-        return result;
-      }
+      result.msg += generalStatus[0x00 as keyof typeof generalStatus] ||
+        `Status code 0x${
+          generalStatusCode.toString(16).padStart(2, "0")
+        } is UNKNOWN`;
+
+      if (extendedStatus.length === 0) return result;
+
+      result.msg += ". Extended: ";
 
       for (const status of extendedStatus) {
         const msg = generalStatus[status as keyof typeof generalStatus] ||
-          `Unknown extended status code 0x${
-            status.toString(16).padStart(2, "0")
-          }`;
-        result.msg.push(msg);
+          `0x${status.toString(16).padStart(2, "0")} is UNKNOWN`;
+        result.msg += msg + "; ";
       }
+      result.msg = result.msg.slice(0, -2);
+
       return result;
     } else {
-      result.msg.push(
-        `Unknown general status code 0x${
-          generalStatusCode.toString(16).padStart(2, "0")
-        }`,
-      );
+      result.msg += `Unknown general status code 0x${
+        generalStatusCode.toString(16).padStart(2, "0")
+      }`;
       return result;
     }
   }
