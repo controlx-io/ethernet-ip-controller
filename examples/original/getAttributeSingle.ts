@@ -7,7 +7,7 @@ let c = new Controller(false);
 c.connect("192.168.111.11", Buffer.from([]), false).then(async () => {
   // Get parameter value:
   // Class ID 0x01 (Identity) with Instance 0x01 and read the "Name" Attribute (0x07)
-  let value = await c.getAttributeSingle(0x01, 0x01, 0x07).catch((e) => {
+  const value = await c.getAttributeSingle(0x01, 0x01, 0x07).catch((e) => {
     console.log(e);
   });
   console.log(value?.toString());
