@@ -221,33 +221,47 @@ class Controller extends ENIP {
   // region Public Method Definitions
 
   /**
-   * Initializes Session with Desired IP Address
-   * and Returns a Promise with the Established Session ID
+   * Initializes Session with EthenetIP Device
    *
-   * @param IP_ADDR - IPv4 Address (can also accept a FQDN, provided port forwarding is configured correctly.)
-   * @param SLOT - Controller Slot Number (0 if CompactLogix), or a Buffer representing the whole routing path
+   * @param ipAddress - IPv4 Address
+   * @param slotIdx - Controller Slot Number (0 if CompactLogix), or a Buffer representing the whole routing path
+   * @returns Promise that resolves after connection
+   */
+  async connectDevice(
+    ipAddress: string,
+    slotIdx: number | Buffer = 0,
+  ): Promise<void> {
+    await this.connect(ipAddress, slotIdx, false);
+  }
+
+  /**
+   * Initializes Session with a PLC or Device. For a PLC, it will get the controller properties and tag list.
+   *
+   * @param ipAddress - IPv4 Address (can also accept a FQDN, provided port forwarding is configured correctly.)
+   * @param slotIdxOrPath - Controller Slot Number (0 if CompactLogix), or a Buffer representing the whole routing path
+   * @param plcSetup - usually for a PLC to get the controller properties and tag list
    * @returns Promise that resolves after connection
    */
   override async connect(
-    IP_ADDR: string,
-    SLOT: number | Buffer = 0,
-    SETUP: boolean = true,
+    ipAddress: string,
+    slotIdxOrPath: number | Buffer = 0,
+    plcSetup: boolean = true,
   ): Promise<void> {
     const { PORT } = CIP.EPATH.segments;
     const BACKPLANE = 1;
 
-    if (typeof SLOT === "number") {
-      this.state.controller.slot = SLOT;
-      this.state.controller.path = PORT.build(BACKPLANE, SLOT);
-    } else if (Buffer.isBuffer(SLOT)) {
-      this.state.controller.path = SLOT;
+    if (typeof slotIdxOrPath === "number") {
+      this.state.controller.slot = slotIdxOrPath;
+      this.state.controller.path = PORT.build(BACKPLANE, slotIdxOrPath);
+    } else if (Buffer.isBuffer(slotIdxOrPath)) {
+      this.state.controller.path = slotIdxOrPath;
     } else {
       throw new Error(
         "Invalid slot parameter type, must be either a number or a Buffer",
       );
     }
 
-    const sessid = await super.connect(IP_ADDR);
+    const sessid = await super.connect(ipAddress);
     if (!sessid) throw new Error("Failed to Register Session with Controller");
 
     this._initializeControllerEventHandlers(); // Connect sendRRData Event
@@ -261,7 +275,7 @@ class Controller extends ENIP {
       }
     }
 
-    if (SETUP) {
+    if (plcSetup) {
       await this.readControllerProps();
       await this.getControllerTagList(this.state.tagList);
     }
