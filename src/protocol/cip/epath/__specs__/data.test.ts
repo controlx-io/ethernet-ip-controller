@@ -85,12 +85,6 @@ Deno.test("EPATH", async (t) => {
       build("hello");
       build(Buffer.from("hello world"));
       build(Buffer.from("hello world"), false);
-
-      // Invalid cases that should throw
-      assertThrows(() => build(32 as any));
-      assertThrows(() => build({ prop: 76 } as any));
-      assertThrows(() => build(1 as any, -1 as any));
-      assertThrows(() => build(1 as any, { hey: "you" } as any));
     });
   });
 });

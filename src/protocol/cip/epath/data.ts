@@ -19,10 +19,6 @@ const ElementTypes = {
  * @returns Segment
  */
 const build = (data: string | Buffer, ANSI: boolean = true): Buffer => {
-  if (!(typeof data === "string" || Buffer.isBuffer(data))) {
-    throw new Error("Data Segment Data Must be a String or Buffer");
-  }
-
   // Build Element Segment If Int
   if (!Number.isNaN(Number(data))) return elementBuild(Number(data));
 
