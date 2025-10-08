@@ -133,6 +133,7 @@ export class BasicPLC extends Controller {
 
     const tempPlcConnection = new Controller(false);
     await tempPlcConnection.connect(ipAddress, slotOrPath, true);
+    await tempPlcConnection.disconnect();
     return tempPlcConnection.state.tagList;
   }
 }
