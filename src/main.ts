@@ -9,16 +9,17 @@ import Browser, { BrowserEvent, IBrowserDevice } from "./services/browser.ts";
 // import IO from "./io";
 import ControllerManager from "./services/controller-manager.ts";
 import { extController } from "./services/controller-manager.ts";
-
-console.log("JSR Library Loaded");
+import { BasicPLC, type IBasicPLCOptions } from "./services/basic-plc.ts";
 
 export {
+  BasicPLC,
   Browser,
   BrowserEvent,
   Controller,
   ControllerManager,
   EthernetIP,
   extController,
+  type IBasicPLCOptions,
   type IBrowserDevice,
   // IO,
   Structure,

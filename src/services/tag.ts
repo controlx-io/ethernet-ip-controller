@@ -100,7 +100,41 @@ export class Tag extends EventEmitter implements ITag {
     // Increment Instances
     instances += 1;
 
-    // Split by "." for memebers
+    const [pathBuf, bitIndex] = Tag.parsePath(tagname, program, datatype);
+
+    //buffer for instance id
+    const bitIndexBuf = Buffer.alloc(1);
+    if (bitIndex === null) bitIndexBuf.writeInt8(32);
+    else bitIndexBuf.writeInt8(bitIndex);
+
+    const instanceBuf = Buffer.concat([pathBuf, bitIndexBuf]);
+
+    this.state = {
+      tag: {
+        name: tagname,
+        type: datatype as number,
+        arrayDims: arrayDims,
+        bitIndex: bitIndex as number,
+        value: null,
+        controllerValue: null,
+        path: pathBuf,
+        program: program as string,
+        stage_write: false,
+      },
+      read_size: arraySize,
+      error: { code: 0, status: null },
+      timestamp: new Date(),
+      instance: hash(instanceBuf),
+      keepAlive: keepAlive,
+    };
+  }
+
+  static parsePath(
+    tagname: string,
+    program: string | null = null,
+    datatype: number | null = null,
+  ): [Buffer, number | null] {
+    // Split by "." for members
     // Split by "[" or "]" for array indexes
     // Split by "," for array indexes with more than 1 dimension
     // Filter for length > 0 to remove empty elements (happens if tag ends with array index)
@@ -160,31 +194,7 @@ export class Tag extends EventEmitter implements ITag {
 
     const pathBuf = Buffer.concat(bufArr);
 
-    //buffer for instance id
-    const bitIndexBuf = Buffer.alloc(1);
-    if (bitIndex === null) bitIndexBuf.writeInt8(32);
-    else bitIndexBuf.writeInt8(bitIndex);
-
-    const instanceBuf = Buffer.concat([pathBuf, bitIndexBuf]);
-
-    this.state = {
-      tag: {
-        name: tagname,
-        type: datatype as number,
-        arrayDims: arrayDims,
-        bitIndex: bitIndex as number,
-        value: null,
-        controllerValue: null,
-        path: pathBuf,
-        program: program as string,
-        stage_write: false,
-      },
-      read_size: arraySize,
-      error: { code: 0, status: null },
-      timestamp: new Date(),
-      instance: hash(instanceBuf),
-      keepAlive: keepAlive,
-    };
+    return [pathBuf, bitIndex];
   }
 
   // region Property Accessors
@@ -1058,9 +1068,9 @@ export class Tag extends EventEmitter implements ITag {
   }
 
   /**
-   * Unstages Value Edit by Updating controllerValue
-   * after the Successful Completion of
-   * a Tag Write
+   * Unstage value edit by updating controllerValue
+   * after the successful completion of
+   * a tag write
    *
    * @memberof Tag
    */
@@ -1084,7 +1094,7 @@ export class Tag extends EventEmitter implements ITag {
     const nameRegex = (captureIndex: number) => {
       return `(_?[a-zA-Z]|_\\d)(?:(?=(_?[a-zA-Z0-9]))\\${captureIndex})*`;
     };
-    const multDimArrayRegex = "(\\[\\d+(,\\d+){0,2}])";
+    const multiDimArrayRegex = "(\\[\\d+(,\\d+){0,2}])";
     const arrayRegex = "(\\[\\d+])";
     const bitIndexRegex = "(\\.\\d{1,2})";
 
@@ -1094,7 +1104,7 @@ export class Tag extends EventEmitter implements ITag {
         nameRegex(3) +
         "\\.)?" + // optional program name
         nameRegex(5) +
-        multDimArrayRegex +
+        multiDimArrayRegex +
         "?" + // tag name
         "(\\." +
         nameRegex(10) +

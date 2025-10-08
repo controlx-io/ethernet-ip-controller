@@ -52,9 +52,15 @@ interface ExtendedENIPState extends ENIPState {
   tagList: TagList;
 }
 
+export interface IControllerOptions {
+  slotIdxOrPath?: number | number[];
+  unconnectedSendTimeout?: number;
+}
+
 class Controller extends ENIP {
   declare state: ExtendedENIPState;
 
+  opts: IControllerOptions;
   workers: {
     read: Queue<IPriorityCompare>;
     write: Queue<IPriorityCompare>;
@@ -67,9 +73,13 @@ class Controller extends ENIP {
    * @param opts future options
    * @param opts.unconnectedSendTimeout unconnected send timeout option
    */
-  constructor(connectedMessaging: boolean = true, opts: any = {}) {
+  constructor(
+    connectedMessaging: boolean = true,
+    opts: IControllerOptions = {},
+  ) {
     super();
 
+    this.opts = opts;
     this.state = {
       ...this.state,
       controller: {
@@ -448,6 +458,7 @@ class Controller extends ENIP {
       }
     }
 
+    this.state.scanning = false;
     super.destroy();
     this._removeControllerEventHandlers();
     return "disconnected";
