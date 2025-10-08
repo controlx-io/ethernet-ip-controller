@@ -1,6 +1,13 @@
 import { Browser, BrowserEvent, type IBrowserDevice } from "../src/main.ts";
 
-const br = new Browser(undefined, "192.168.111.211", false, 1000);
+const ipAddress = await prompt(
+  "Enter the IP address of network to check for devices:",
+);
+const ipAddressRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
+if (!ipAddress) throw new Error("IP address is required");
+if (!ipAddressRegex.test(ipAddress)) throw new Error("Invalid IP address");
+
+const br = new Browser(undefined, ipAddress, false, 1000);
 console.log(`Starting Ethernet/IP Discovery on: ${br.originatorIPaddress}`);
 
 br.on(

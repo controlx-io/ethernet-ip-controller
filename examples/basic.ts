@@ -3,6 +3,8 @@ import { Controller } from "@controlx-io/ethernet-ip-controller";
 // prompt the user for the IP address
 const ipAddress = await prompt("Enter the IP address of the PLC:");
 if (!ipAddress) throw new Error("IP address is required");
+const ipAddressRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
+if (!ipAddressRegex.test(ipAddress)) throw new Error("Invalid IP address");
 
 const plc = new Controller(true);
 
