@@ -247,7 +247,7 @@ Deno.test("Tag Class", async (t) => {
       const retrievedTag = group.getTagById(tag1.instance_id);
 
       assertEquals(retrievedTag, tag1);
-      assertEquals(retrievedTag?.name, "testTag1");
+      assertEquals(retrievedTag?.name, "Program:prog.testTag1");
     });
 
     await t.step("Returns undefined when given an invalid ID", () => {
@@ -260,6 +260,38 @@ Deno.test("Tag Class", async (t) => {
       const retrievedTag = group.getTagById("non-existent-id");
 
       assertEquals(retrievedTag, undefined);
+    });
+
+    await t.step("Returns correct tag when created without program", () => {
+      const tag1 = new Tag("testTag1", undefined, Types.DINT);
+      const tag2 = new Tag("testTag2", undefined, Types.DINT);
+
+      const group = new TagGroup();
+
+      group.add(tag1);
+      group.add(tag2);
+
+      // Get tag by its instance_id
+      const retrievedTag = group.getTagById(tag1.instance_id);
+
+      assertEquals(retrievedTag, tag1);
+      assertEquals(retrievedTag?.name, "testTag1");
+    });
+
+    await t.step("Returns correct tag when created with program = null", () => {
+      const tag1 = new Tag("testTag1", null, Types.DINT);
+      const tag2 = new Tag("testTag2", null, Types.DINT);
+
+      const group = new TagGroup();
+
+      group.add(tag1);
+      group.add(tag2);
+
+      // Get tag by its instance_id
+      const retrievedTag = group.getTagById(tag1.instance_id);
+
+      assertEquals(retrievedTag, tag1);
+      assertEquals(retrievedTag?.name, "testTag1");
     });
   });
 });
