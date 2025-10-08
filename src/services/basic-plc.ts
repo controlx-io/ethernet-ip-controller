@@ -5,6 +5,7 @@ import TagGroup from "./tag-group.ts";
 import Tag from "./tag.ts";
 import { Structure } from "./structure.ts";
 import { delay } from "../utils/utilities.ts";
+import TagList from "./tag-list.ts";
 
 export interface IBasicPLCOptions extends IControllerOptions {
   delayBetweenWriteRead_ms?: number;
@@ -13,6 +14,7 @@ export interface IBasicPLCOptions extends IControllerOptions {
 }
 
 export type TagInfo = {
+  id?: string; // custom tag id. If provided, it will be used instead of current instance id.
   name: string;
   program?: string;
   arrayDims?: number;
@@ -79,6 +81,8 @@ export class BasicPLC extends Controller {
           tagInfo.arraySize,
         );
 
+      if (tagInfo.id) tag.state.instance = tagInfo.id;
+
       this.group.add(tag);
     }
 
@@ -115,5 +119,20 @@ export class BasicPLC extends Controller {
   override async disconnect(): Promise<string> {
     this.stopPolling();
     return await super.disconnect();
+  }
+
+  static async getControllerTagList(
+    ipAddress: string,
+    slotIdxOrPath: number | number[] = 0,
+  ): Promise<TagList> {
+    // check if ipAddress is valid
+    if (!isIPv4(ipAddress)) throw new Error("Invalid IP address");
+    const slotOrPath = Array.isArray(slotIdxOrPath)
+      ? Buffer.from(slotIdxOrPath as number[])
+      : slotIdxOrPath ?? 0;
+
+    const tempPlcConnection = new Controller(false);
+    await tempPlcConnection.connect(ipAddress, slotOrPath, true);
+    return tempPlcConnection.state.tagList;
   }
 }
