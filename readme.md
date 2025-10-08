@@ -1,10 +1,8 @@
-# BETA VERSION - NOT FOR PRODUCTION YET
-
 # Ethernet/IP Controller Library
 
 This library implements controller Ethernet/IP functionalities: **Explicit
 Message Client** and **I/O Scanner** written to support reads and writes to PLCs
-using Ethernt/IP protocol. Supports IO Scanner to interact with Ethernet/IP
+using Ethernet/IP protocol. Supports IO Scanner to interact with Ethernet/IP
 adapters.
 
 ## Installation
@@ -30,13 +28,18 @@ bunx jsr add @controlx-io/ts-ethernet-ip
 
 ## Example
 
-Polling the first tag value, run
+To run the examples without downloading the library, install from
+[Deno](https://docs.deno.com/runtime/getting_started/installation/) and run the
+commands.
+
+Finds the first DINT tag and polls the value for 5 seconds.
 
 ```
 deno --allow-net https://jsr.io/@controlx-io/ethernet-ip-controller/0.1.4/examples/basic.ts
 ```
 
-or
+or sends discovery packets for 10 seconds and displays the names of discovered
+Ethernet/IP devices.
 
 ```
 deno --allow-net https://jsr.io/@controlx-io/ethernet-ip-controller/0.1.4/examples/discovery.ts
@@ -49,15 +52,16 @@ Or create a file `main.ts` with the content below and run
 import { Controller } from "@controlx-io/ethernet-ip-controller";
 
 const ipAddress = await prompt("Enter the IP address of the PLC:");
-if (!ipAddress) throw new Error("IP address is required");
-
 const plc = new Controller(true);
 
 await plc.connect(ipAddress);
 const dintTagInfo = plc.state.tagList.tags.find(
   (t) => t.type.typeName === "DINT",
 );
+if (!dintTagInfo) throw new Error("No DINT tags found");
 console.log(dintTagInfo);
+
+console.log("Starting polling for DINT tag for 5 seconds");
 const tagToRead = plc.newTag(dintTagInfo.name, dintTagInfo.program);
 
 let count = 0;
@@ -65,6 +69,7 @@ const tId = setInterval(async () => {
   count += 1;
   if (count > 5) {
     clearInterval(tId);
+    console.log("Disconnecting from PLC");
     return plc.disconnect();
   }
 
@@ -75,7 +80,7 @@ const tId = setInterval(async () => {
 
 ## Inspirations
 
-This project uses the following to achive the desired.
+This project uses the following to achieve the desired.
 
 ```
 https://github.com/cmseaton42/node-ethernet-ip
