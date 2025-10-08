@@ -15,6 +15,8 @@ const dintTagInfo = plc.state.tagList.tags.find(
 if (!dintTagInfo) throw new Error("No DINT tags found");
 
 console.log(dintTagInfo);
+
+console.log("Starting polling for DINT tag for 5 seconds");
 const tagToRead = plc.newTag(dintTagInfo.name, dintTagInfo.program);
 
 let count = 0;
@@ -22,6 +24,7 @@ const tId = setInterval(async () => {
   count += 1;
   if (count > 5) {
     clearInterval(tId);
+    console.log("Disconnecting from PLC");
     return plc.disconnect();
   }
 

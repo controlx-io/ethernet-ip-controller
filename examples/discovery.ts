@@ -8,7 +8,9 @@ if (!ipAddress) throw new Error("IP address is required");
 if (!ipAddressRegex.test(ipAddress)) throw new Error("Invalid IP address");
 
 const br = new Browser(undefined, ipAddress, false, 1000);
-console.log(`Starting Ethernet/IP Discovery on: ${br.originatorIPaddress}`);
+console.log(
+  `Starting Ethernet/IP Discovery on: ${br.originatorIPaddress} for 10 seconds`,
+);
 
 br.on(
   BrowserEvent.NewDevice,

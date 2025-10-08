@@ -30,12 +30,16 @@ bunx jsr add @controlx-io/ts-ethernet-ip
 
 ## Example
 
-Polling tag value, run
+Polling the first tag value, run
 
 ```
-deno --allow-net https://jsr.io/@controlx-io/ethernet-ip-controller/0.1.2-beta/examples/basic.ts
-# or
-deno --allow-net https://jsr.io/@controlx-io/ethernet-ip-controller/0.1.2-beta/examples/discovery.ts
+deno --allow-net https://jsr.io/@controlx-io/ethernet-ip-controller/0.1.4/examples/basic.ts
+```
+
+or
+
+```
+deno --allow-net https://jsr.io/@controlx-io/ethernet-ip-controller/0.1.4/examples/discovery.ts
 ```
 
 Or create a file `main.ts` with the content below and run
