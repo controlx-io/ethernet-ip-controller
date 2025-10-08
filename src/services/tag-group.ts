@@ -75,6 +75,10 @@ class TagGroup {
     }
   }
 
+  getTagById(id: string): Tag | undefined {
+    return this.state.tags[id];
+  }
+
   /**
    * Iterable, Allows user to Iterate of each Tag in Group
    *

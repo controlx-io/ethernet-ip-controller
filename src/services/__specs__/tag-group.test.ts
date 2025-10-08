@@ -230,4 +230,36 @@ Deno.test("Tag Class", async (t) => {
       assertEquals(result, []);
     });
   });
+
+  await t.step("Get Tag By ID Method", async (t) => {
+    await t.step("Returns the correct tag when given a valid ID", () => {
+      const tag1 = new Tag("testTag1", "prog", Types.DINT);
+      const tag2 = new Tag("testTag2", "prog", Types.DINT);
+      const tag3 = new Tag("testTag3", "prog", Types.DINT);
+
+      const group = new TagGroup();
+
+      group.add(tag1);
+      group.add(tag2);
+      group.add(tag3);
+
+      // Get tag by its instance_id
+      const retrievedTag = group.getTagById(tag1.instance_id);
+
+      assertEquals(retrievedTag, tag1);
+      assertEquals(retrievedTag?.name, "testTag1");
+    });
+
+    await t.step("Returns undefined when given an invalid ID", () => {
+      const tag1 = new Tag("testTag1", "prog", Types.DINT);
+      const group = new TagGroup();
+
+      group.add(tag1);
+
+      // Try to get a tag with a non-existent ID
+      const retrievedTag = group.getTagById("non-existent-id");
+
+      assertEquals(retrievedTag, undefined);
+    });
+  });
 });
